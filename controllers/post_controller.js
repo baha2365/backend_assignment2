@@ -19,4 +19,45 @@ async function getPostHandler(req, res, next) {
   }
 }
 
-module.exports = { createPostHandler, getPostHandler };
+
+
+
+async function addCommentHandler(req, res, next) {
+  try {
+    const { addComment } = require('../services/post_service');
+    const comment = await addComment(req.body);
+    res.status(201).json(comment);
+  } catch (err) {
+    next(err);
+  }
+}
+
+
+
+const { createComment } = require('../services/post_service');
+
+async function addCommentHandler(req, res, next) {
+  try {
+    const comment = await createComment(req.body);
+    res.status(201).json(comment);
+  } catch (err) {
+    next(err);
+  }
+}
+
+
+
+
+async function deleteCommentHandler(req, res, next) {
+  try {
+    const { deleteComment } = require('../services/post_service');
+    const commentId = parseInt(req.params.id);
+    const comment = await deleteComment(commentId);
+    res.json({ message: "Comment soft-deleted", comment });
+  } catch (err) {
+    next(err);
+  }
+}
+
+
+module.exports = { createPostHandler, getPostHandler, addCommentHandler , deleteCommentHandler};

@@ -12,6 +12,14 @@ app.use(express.json());
 app.use('/api/users', userRoutes);
 app.use('/api/posts', postRoutes);
 
+
+
+const categoryRoutes = require('./routes/category_routes');
+app.use('/api/categories', categoryRoutes);
+
+
+
+
 app.get('/api/test', (req, res) => {
   res.json({ message: 'Server is working!' });
 });
